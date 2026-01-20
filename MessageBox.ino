@@ -53,12 +53,6 @@ String globalContentBuffer = "";
 
 // ================= 5. PHAN CUNG =================
 Servo myservo;
-#define SERVO_PIN 15
-#define WIFI_SSID "P103"
-#define WIFI_PASSWORD "7421yenxa"
-
-#define BOT_TOKEN "8528779443:AAERwn2HRnpUp1rQJEdJruw4pGepptUTvjw"
-#define CHAT_ID "7374724016"
 
 struct tm startLoveDate = {0, 0, 0, 23, 1, 125}; // 14/02/2023
 
