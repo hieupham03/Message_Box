@@ -1,14 +1,13 @@
-// ================= 1. BAO MAT (SECRETS) =================
-// Gọi file chứa mật khẩu wifi/token (Phải nằm đầu tiên)
+// 1. BAO MAT (SECRETS)
+// Gọi file chứa mật khẩu wifi/token
 #include "secrets.h"
-// ================= 2. CAU HINH BLYNK (MAPPING) =================
-// Quan trọng: Phải định nghĩa các dòng này TRƯỚC KHI gọi thư viện Blynk
+//  2. CAU HINH BLYNK (MAPPING) 
 #define BLYNK_TEMPLATE_ID   SECRET_BLYNK_TEMPLATE_ID
 #define BLYNK_TEMPLATE_NAME SECRET_BLYNK_TEMPLATE_NAME
 #define BLYNK_AUTH_TOKEN    SECRET_BLYNK_AUTH_TOKEN
 #define BLYNK_PRINT Serial
 
-// ================= 2. THU VIEN =================
+//  2. THU VIEN 
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <BlynkSimpleEsp32.h>
@@ -26,13 +25,13 @@
 #include "soc/soc.h"
 #include "soc/rtc_cntl_reg.h"
 
-// ================= 3. SHARED DATA =================
+//  3. SHARED DATA 
 volatile bool hasNewTelegramMessage = false; 
 String sharedMsgText = "";                   
 String sharedChatId = "";                    
 portMUX_TYPE sharedDataMux = portMUX_INITIALIZER_UNLOCKED; 
 
-// ================= 4. CAU HINH CO BAN =================
+//  4. CAU HINH CO BAN 
 const char* ntpServer = "time.google.com";
 const long gmtOffset_sec = 7 * 3600;
 const int daylightOffset_sec = 0;
@@ -51,7 +50,7 @@ const unsigned long POMODORO_DURATION = 25 * 60 * 1000;
 String globalTitleBuffer = "";
 String globalContentBuffer = "";
 
-// ================= 5. PHAN CUNG =================
+//  5. PHAN CUNG 
 Servo myservo;
 #define SERVO_PIN 15
 #define WIFI_SSID "P103"
@@ -60,7 +59,7 @@ Servo myservo;
 #define BOT_TOKEN "8528779443:AAERwn2HRnpUp1rQJEdJruw4pGepptUTvjw"
 #define CHAT_ID "7374724016"
 
-struct tm startLoveDate = {0, 0, 0, 23, 1, 125}; // 14/02/2023
+struct tm startLoveDate = {0, 0, 0, 23, 1, 125}; //23/02/2025
 
 U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE);
 WiFiClientSecure client;
@@ -93,15 +92,15 @@ ServoState currentServoState = SERVO_IDLE;
 unsigned long lastServoTime = 0;
 int servoStep = 0;
 
-// ================= 6. CORE 0 TASK: NETWORK WORKER =================
+//  6. CORE 0 TASK: NETWORK WORKER 
 // Core 0 chiu trach nhiem HOAN TOAN viec gui/nhan tin nhan
 void TaskTelegram(void *pvParameters) {
-  Serial.print("TeleTask running on Core "); Serial.println(xPortGetCoreID());
+  Serial.print("TeleTask running on Core ");
+  Serial.println(xPortGetCoreID());
 
   while (WiFi.status() != WL_CONNECTED) {
     vTaskDelay(500 / portTICK_PERIOD_MS);
   }
-
   for(;;) { 
     if (WiFi.status() == WL_CONNECTED && timeSynced) {
       
@@ -138,7 +137,7 @@ void TaskTelegram(void *pvParameters) {
   }
 }
 
-// ================= 7. HELPERS (CORE 1) =================
+//  7. HELPERS (CORE 1) 
 void trySyncTime() {
   static unsigned long lastTry = 0;
   if (timeSynced) return;
@@ -288,7 +287,7 @@ void renderScreen() {
   if (currentScreen == SCREEN_IDLE) drawIdleScreen();
 }
 
-// ================= 8. LOGIC & CALLBACKS (CORE 1) =================
+//  8. LOGIC & CALLBACKS (CORE 1) 
 // Core 1 chi nhan du lieu hien thi, KHONG GUI TIN NHAN DI
 void processSharedMessages() {
   if (hasNewTelegramMessage) {
@@ -336,9 +335,6 @@ void onDoubleClick() {
 }
 void onLongPress() {
   setScreen(SCREEN_SOS, 3000, "SOS", "Dang gui SOS...");
-  // LUU Y: SOS O DAY CHUA GUI DUOC VI CORE 1 KHONG DUOC DUNG MANG
-  // De don gian, ta bo qua gui SOS tu Core 1 trong phien ban V7.1 nay
-  // Hoac chi hien thi man hinh thoi.
   triggerServoNotify();
 }
 
@@ -364,7 +360,7 @@ BLYNK_WRITE(V0) {
 }
 BLYNK_WRITE(V2) { int vol = param.asInt(); setScreen(SCREEN_NOTIFICATION, 2000, "Am luong", "Muc: " + String(vol)); }
 
-// ================= 9. SETUP & LOOP =================
+//  9. SETUP & LOOP 
 void setup() {
   WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
   Serial.begin(115200);
@@ -379,7 +375,7 @@ void setup() {
 
   Blynk.config(BLYNK_AUTH_TOKEN);
   
-  // FIX LOI SSL (QUAN TRONG)
+  // FIX LOI SSL
   client.setInsecure(); 
   
   configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
