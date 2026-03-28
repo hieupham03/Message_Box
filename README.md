@@ -35,4 +35,8 @@ Dự án được xây dựng trên nền tảng **ESP32** sử dụng kiến tr
 #define SECRET_WIFI_PASS     "YOUR_WIFI_PASS"
 #define SECRET_BLYNK_AUTH_TOKEN "YOUR_BLYNK_TOKEN"
 #define SECRET_BOT_TOKEN     "YOUR_TELEGRAM_BOT_TOKEN"
+<<<<<<< HEAD
 #define SECRET_CHAT_ID       "YOUR_CHAT_ID"
+=======
+#define SECRET_CHAT_ID       "YOUR_CHAT_ID"
+>>>>>>> db11ecdb18875d79a74d5d959549a2ddda4ce4cf
