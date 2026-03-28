@@ -26,7 +26,7 @@ Dự án được phát triển trên vi điều khiển **ESP32**, tận dụng
 
 ---
 
-## 🛠 Phần cứng yêu cầu (Hardware)
+## Phần cứng yêu cầu (Hardware)
 * **MCU:** ESP32 DevKit V1
 * **Màn hình:** OLED 0.96" (SH1106 - Giao tiếp I2C)
 * **Âm thanh:** DFRobot DFPlayer Mini + Loa 3W
