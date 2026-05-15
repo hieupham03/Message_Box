@@ -36,3 +36,4 @@ Dự án được xây dựng trên nền tảng **ESP32** sử dụng kiến tr
 #define SECRET_BLYNK_AUTH_TOKEN "YOUR_BLYNK_TOKEN"
 #define SECRET_BOT_TOKEN     "YOUR_TELEGRAM_BOT_TOKEN"
 #define SECRET_CHAT_ID       "YOUR_CHAT_ID"
+```
