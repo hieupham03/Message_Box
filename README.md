@@ -73,3 +73,4 @@ Tạo một file tên là `secrets.h` đặt cùng thư mục với file `.ino`.
 #define SECRET_CHAT_ID       "ID_Chat_Của_Bạn"
 
 #endif
+```
