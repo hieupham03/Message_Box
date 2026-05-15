@@ -1,4 +1,4 @@
-#include "secrets.h"
+#include "../secrets.h"
 
 // Define Blynk macros FIRST
 #define BLYNK_TEMPLATE_ID   SECRET_BLYNK_TEMPLATE_ID

@@ -2,7 +2,7 @@
 #define GLOBALS_H
 
 #include <Arduino.h>
-#include "secrets.h"
+#include "../secrets.h"
 
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
