@@ -9,6 +9,9 @@
 
 Dự án được phát triển trên nền tảng vi điều khiển **ESP32**, tận dụng tối đa kiến trúc Dual-Core nhằm duy trì kết nối mạng ổn định đồng thời đảm bảo hiệu suất mượt mà cho giao diện người dùng (UI) và phần cứng âm thanh.
 
+> [!TIP]
+> **Tài liệu:** Xem ngay bản phân tích kỹ thuật chuyên sâu về các giải pháp tối ưu hệ thống nhúng (FreeRTOS, Signal Processing, Hardware Watchdog, Thread-Safety) tại [**LoveBox Architecture & Engineering Deep-Dive**](docs/ARCH_DEEP_DIVE.md).
+
 ---
 
 ## Tính năng nổi bật & Cách thức hoạt động
@@ -19,7 +22,7 @@ Dự án được phát triển trên nền tảng vi điều khiển **ESP32**,
 * **Chatbot Telegram:** Hỗ trợ nhận lệnh điều khiển từ xa.
   * *Chi tiết triển khai:* Parse các tin nhắn bắt đầu bằng ký tự `/` (như `/status` để kiểm tra trạng thái, `/pomodoro` để bật đếm giờ). Code C++ xử lý logic tương ứng và gọi API của Telegram gửi câu trả lời về lại Chat ID của người dùng.
 * **Thú cưng ảo (Virtual Pet) kết hợp AI:** Hiển thị thông điệp và biểu cảm động của thú cưng trên màn hình. Đặc biệt, hệ thống được thiết lập để trả lời prompt như một AI Assistant.
-  * *Chi tiết triển khai:* Sử dụng **Make.com** (Integromat) làm trung gian. Make.com nhận prompt từ một nguồn (như Telegram/Discord), gửi qua API của AI (ChatGPT/Gemini) để sinh ra lời nhắn yêu thương hoặc câu trả lời dỗ dành. Sau đó, Make.com tự động gọi HTTP GET/POST tới API của Blynk (chân ảo V9) để bắn đoạn text đó xuống ESP32. ESP32 nhận dữ liệu, kích hoạt trạng thái `isShowingPet`, bật giao diện thú cưng đang nói chuyện lên OLED và gõ Servo báo hiệu.
+  * *Chi tiết triển khai:* Sử dụng **Make.com** (Integromat) làm trung gian. Make.com nhận prompt từ một nguồn (như Telegram/Discord), gửi qua API của AI (ChatGPT/Gemini) để sinh ra lời nhắn hoặc câu trả lời. Sau đó, Make.com tự động gọi HTTP GET/POST tới API của Blynk (chân ảo V9) để bắn đoạn text đó xuống ESP32. ESP32 nhận dữ liệu, kích hoạt trạng thái `isShowingPet`, bật giao diện thú cưng đang nói chuyện lên OLED và gõ Servo báo hiệu.
 * **Cảm ứng điện dung siêu nhạy:** Nhận diện lệnh bằng cách chạm vào vỏ hộp.
   * *Chi tiết triển khai:* Sử dụng chân cảm ứng phần cứng (Touch0 - GPIO4) của ESP32 nối với một bề mặt kim loại. Thuật toán phần mềm liên tục lấy mẫu (sampling), dùng bộ lọc nhiễu và hàm `millis()` đo thời gian để phân biệt giữa chạm đơn (Single Tap), chạm đúp (Double Tap) và chạm giữ (Hold).
 * **Phản hồi xúc giác (Haptic Feedback):** Âm thanh báo hiệu vật lý.
@@ -36,6 +39,8 @@ Dự án được phát triển trên nền tảng vi điều khiển **ESP32**,
 ### 3. Kiến trúc hệ thống (Core System)
 * **Dual-Core Multitasking:** Xử lý đa luồng độc lập, chống giật lag.
   * *Chi tiết triển khai:* Ứng dụng hệ điều hành FreeRTOS (`xTaskCreatePinnedToCore`) tích hợp sẵn trong ESP32. Core 0 chạy một Task vô hạn để lo xử lý mạng (WiFi, Blynk, Telegram) vốn tốn nhiều thời gian chờ. Trong khi đó, Core 1 chạy vòng `loop()` liên tục xử lý render đồ họa U8g2, lấy mẫu Touch và quét trạng thái âm thanh để đảm bảo tốc độ phản hồi tính bằng mili-giây.
+
+  ![Sơ đồ đa nhiệm FreeRTOS và Thread-Safety](assets/images/freertos_arch.png)
 * **Smart WiFi Setup & Auto Fallback:** Kết nối WiFi thông minh, dự phòng sự cố.
   * *Chi tiết triển khai:* Cấu hình ESP32 kết nối tuần tự với các SSID lưu cứng (VD: mạng nhà bạn trai, mạng nhà bạn gái). Nếu đều thất bại, thiết bị dùng thư viện `WiFiManager` chuyển sang chế độ Access Point, phát ra một WiFi tên `LoveBox Setup`. Người dùng kết nối vào WiFi này, thiết bị sẽ bật một trang web Captive Portal nội bộ để người dùng chọn mạng và điền mật khẩu mới.
 * **Cập nhật phần mềm không dây (OTA Update):** Nạp code từ xa.
@@ -62,22 +67,31 @@ Dự án được phát triển trên nền tảng vi điều khiển **ESP32**,
 | **Servo SG90** | `D15` | Điều khiển PWM |
 | **Touch Sensor** | `D4` | Chân cảm biến điện dung (Touch0) |
 
+### Sơ đồ đi dây phần cứng (Hardware Wiring Diagram)
+
+![Sơ đồ đi dây phần cứng LoveBox](assets/images/hardware_block.png)
+
 ---
 
 ## Cấu trúc dự án
 
 ```text
-MessageBox/
-├── MessageBox.ino          # File chương trình chính
-├── README.md               # Tài liệu dự án
-├── secrets.h               # File cấu hình bảo mật (Không push lên Git)
-└── src/                    # Thư mục mã nguồn C++
-    ├── AudioManager.cpp/h  # Quản lý phát nhạc MP3
-    ├── DisplayManager.cpp/h# Quản lý hiển thị màn hình OLED
-    ├── Globals.cpp/h       # Biến toàn cục và cấu hình chung
-    ├── NetworkManager.cpp/h# Xử lý kết nối WiFi, Blynk, Telegram, NTP
-    ├── ServoManager.cpp/h  # Quản lý phản hồi xúc giác (Servo)
-    └── TouchManager.cpp/h  # Xử lý sự kiện cảm ứng điện dung
+LoveBox/
+├── docs/
+│   ├── ARCH_DEEP_DIVE.md   # Tài liệu chuyên sâu về kiến trúc & thuật toán nhúng
+│   ├── DIAGRAMS_GUIDE.md   # Hướng dẫn vẽ và mã nguồn các sơ đồ hệ thống
+│   └── VIDEO_SCRIPT.md     # Kịch bản chi tiết để quay & dựng video demo
+├── src/                    # Thư mục mã nguồn C++ tách module sạch sẽ
+│   ├── AudioManager.cpp/h  # Trình phát nhạc MP3 (Fisher-Yates Shuffle)
+│   ├── DisplayManager.cpp/h# Điều khiển màn hình OLED SH1106
+│   ├── Globals.cpp/h       # Trạng thái hệ thống, cấu hình phần cứng
+│   ├── NetworkManager.cpp/h# Core 0: Xử lý WiFi, Blynk, Telegram Bot, NTP, OTA
+│   ├── ServoManager.cpp/h  # Phản hồi xúc giác qua Servo SG90
+│   └── TouchManager.cpp/h  # Core 1: Lấy mẫu Touch, lọc nhiễu Median & EMA
+├── MessageBox.ino          # Điểm khởi đầu chương trình chính
+├── README.md               # Tài liệu tổng quan dự án
+├── secrets.example.h       # Mẫu cấu hình bảo mật mẫu
+└── secrets.h               # Cấu hình bảo mật cá nhân (Được gitignore)
 ```
 
 ---
