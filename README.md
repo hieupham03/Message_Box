@@ -5,7 +5,7 @@
 [![C++](https://img.shields.io/badge/C++-%2300599C.svg?style=flat-square&logo=c%2B%2B&logoColor=white)](https://cplusplus.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**LoveBox** là một thiết bị IoT thông minh được thiết kế đặc biệt dành cho các cặp đôi. Không chỉ là một chiếc hộp nhận tin nhắn theo thời gian thực, LoveBox còn đóng vai trò như một người bạn đồng hành với các tính năng đếm ngày kỷ niệm, nhắc nhở công việc, phát nhạc tự động và một số tương tác thông minh khác.
+**LoveBox** là một thiết bị IoT thông minh được thiết kế đặc biệt như một món quà công nghệ dành cho các cặp đôi. Không chỉ là một chiếc hộp nhận tin nhắn theo thời gian thực, LoveBox còn đóng vai trò như một người bạn đồng hành với các tính năng đếm ngày kỷ niệm, nhắc nhở công việc, phát nhạc tự động và một số tương tác thông minh khác.
 
 Dự án được phát triển trên nền tảng vi điều khiển **ESP32**, tận dụng tối đa kiến trúc Dual-Core nhằm duy trì kết nối mạng ổn định đồng thời đảm bảo hiệu suất mượt mà cho giao diện người dùng (UI) và phần cứng âm thanh.
 
