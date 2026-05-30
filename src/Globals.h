@@ -12,13 +12,13 @@
 #include "DFRobotDFPlayerMini.h"
 #include "time.h"
 
-// ================= [2. HARDWARE PINS] =================
+//2. HARDWARE PINS
 #define RXD2 32
 #define TXD2 33 
 #define SERVO_PIN 15
 #define TOUCH_PIN 4
 
-// ================= [3. ENUMS & CONSTANTS] =================
+//3. ENUMS & CONSTANTS
 enum AudioPriority {
   PRIO_IDLE = 0,
   PRIO_MUSIC = 1,
@@ -40,7 +40,7 @@ enum ServoMode {
 // Safe mode
 #define WDT_TIMEOUT 30
 
-// ================= [4. EXTERN GLOBAL VARIABLES] =================
+//4. EXTERN GLOBAL VARIABLES]
 extern String currentNote;
 extern bool isShowingNote;
 extern unsigned long noteDisplayStartTime;
@@ -119,7 +119,7 @@ extern SharedIncoming sharedMsg;
 extern SharedOutgoing sharedSend;
 extern portMUX_TYPE sharedMux;
 
-// ================= [5. EXTERN OBJECTS] =================
+//5. EXTERN OBJECTS
 extern HardwareSerial myHardwareSerial;
 extern DFRobotDFPlayerMini myDFPlayer;
 extern Servo myservo;

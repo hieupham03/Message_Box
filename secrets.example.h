@@ -2,11 +2,11 @@
 #define SECRETS_H
 #pragma once
 
-// ================= [SECRET CREDENTIALS TEMPLATE] =================
+// SECRET CREDENTIALS TEMPLATE
 // Copy this file to "secrets.h" and replace with your real credentials.
 // "secrets.h" is already added to .gitignore and will not be pushed to GitHub.
 
-// 1. WiFi Configurations (Supports auto-fallback between multiple locations)
+// 1. WiFi Configurations
 #define SECRET_WIFI_GF_SSID     "YOUR_GIRLFRIEND_WIFI_SSID"
 #define SECRET_WIFI_GF_PASS     "YOUR_GIRLFRIEND_WIFI_PASSWORD"
 

@@ -89,7 +89,7 @@ void TaskTelegram(void *pvParameters) {
   }
 }
 
-// ================= [BLYNK CALLBACKS] =================
+//BLYNK CALLBACKS
 BLYNK_CONNECTED() {
   Blynk.syncAll();
 }

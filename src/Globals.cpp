@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include <esp_task_wdt.h>
 
-// ================= [4. GLOBAL VARIABLES] =================
+//4. GLOBAL VARIABLES
 String currentNote = "Chua co ghi chu"; 
 bool isShowingNote = false; 
 unsigned long noteDisplayStartTime = 0;
@@ -68,7 +68,7 @@ SharedIncoming sharedMsg = { false, {0}, 0 };
 SharedOutgoing sharedSend = { false, {0} };
 portMUX_TYPE sharedMux = portMUX_INITIALIZER_UNLOCKED;
 
-// ================= [5. EXTERN OBJECTS] =================
+//5. EXTERN OBJECTS
 HardwareSerial myHardwareSerial(2);
 DFRobotDFPlayerMini myDFPlayer;
 Servo myservo;
