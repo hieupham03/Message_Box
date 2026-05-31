@@ -4,13 +4,21 @@
 [![Arduino IDE](https://img.shields.io/badge/Arduino_IDE-00979D?style=flat-square&logo=arduino&logoColor=white)](https://www.arduino.cc/en/software)
 [![C++](https://img.shields.io/badge/C++-%2300599C.svg?style=flat-square&logo=c%2B%2B&logoColor=white)](https://cplusplus.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://github.com/hieupham03/Message_Box/actions/workflows/compile.yml/badge.svg)](https://github.com/hieupham03/Message_Box/actions/workflows/compile.yml)
+[![YouTube Demo](https://img.shields.io/badge/YouTube-Video_Demo-red?style=flat-square&logo=youtube&logoColor=white)](https://youtu.be/AbFyEEcto_E)
+
+![Ảnh sản phẩm thực tế LoveBox](assets/images/image01.jpg)
 
 **LoveBox** là một thiết bị IoT thông minh được thiết kế đặc biệt như một món quà công nghệ dành cho các cặp đôi. Không chỉ là một chiếc hộp nhận tin nhắn theo thời gian thực, LoveBox còn đóng vai trò như một người bạn đồng hành với các tính năng đếm ngày kỷ niệm, nhắc nhở công việc, phát nhạc tự động và một số tương tác thông minh khác.
 
 Dự án được phát triển trên nền tảng vi điều khiển **ESP32**, tận dụng tối đa kiến trúc Dual-Core nhằm duy trì kết nối mạng ổn định đồng thời đảm bảo hiệu suất mượt mà cho giao diện người dùng (UI) và phần cứng âm thanh.
 
-> [!TIP]
-> **Tài liệu:** Xem ngay bản phân tích kỹ thuật chuyên sâu về các giải pháp tối ưu hệ thống nhúng (FreeRTOS, Signal Processing, Hardware Watchdog, Thread-Safety) tại [**LoveBox Architecture & Engineering Deep-Dive**](docs/ARCH_DEEP_DIVE.md).
+---
+
+### 🎥 Video Demo Hoạt Động
+Bạn có thể xem video trình diễn thực tế của thiết bị, mô tả chi tiết các phân cảnh hoạt động, phản hồi xúc giác và các tích hợp thông minh khác trực tiếp tại YouTube:
+
+[![Xem Video Demo LoveBox](https://img.shields.io/badge/Watch_Demo_Video-Click_Here-red?style=for-the-badge&logo=youtube)](https://youtu.be/AbFyEEcto_E)
 
 ---
 
@@ -77,10 +85,13 @@ Dự án được phát triển trên nền tảng vi điều khiển **ESP32**,
 
 ```text
 LoveBox/
+├── assets/
+│   └── images/
+│       ├── freertos_arch.png   # Sơ đồ đa nhiệm FreeRTOS
+│       ├── hardware_block.png  # Sơ đồ đi dây phần cứng
+│       └── image01.jpg         # Ảnh chụp thực tế sản phẩm hoàn thiện
 ├── docs/
-│   ├── ARCH_DEEP_DIVE.md   # Tài liệu chuyên sâu về kiến trúc & thuật toán nhúng
-│   ├── DIAGRAMS_GUIDE.md   # Hướng dẫn vẽ và mã nguồn các sơ đồ hệ thống
-│   └── VIDEO_SCRIPT.md     # Kịch bản chi tiết để quay & dựng video demo
+│   └── DIAGRAMS_GUIDE.md   # Hướng dẫn vẽ và mã nguồn các sơ đồ hệ thống
 ├── src/                    # Thư mục mã nguồn C++ tách module sạch sẽ
 │   ├── AudioManager.cpp/h  # Trình phát nhạc MP3 (Fisher-Yates Shuffle)
 │   ├── DisplayManager.cpp/h# Điều khiển màn hình OLED SH1106
