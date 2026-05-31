@@ -15,7 +15,7 @@ Dự án được phát triển trên nền tảng vi điều khiển **ESP32**,
 
 ---
 
-### 🎥 Video Demo Hoạt Động
+### Video Demo Hoạt Động
 Bạn có thể xem video trình diễn thực tế của thiết bị, mô tả chi tiết các phân cảnh hoạt động, phản hồi xúc giác và các tích hợp thông minh khác trực tiếp tại YouTube:
 
 [![Xem Video Demo LoveBox](https://img.shields.io/badge/Watch_Demo_Video-Click_Here-red?style=for-the-badge&logo=youtube)](https://youtu.be/AbFyEEcto_E)
